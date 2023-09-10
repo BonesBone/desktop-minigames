@@ -147,7 +147,7 @@ function getCollumn(id){
         return (buttonNumber + 2) % 3;
     } else {
         return (id + 2) % 3;
-
+        
     }
     
 }
