@@ -1,0 +1,93 @@
+html{
+    background-color: #171010;
+}
+
+.Title{
+    position: fixed;
+    display: inline-block;
+    top: 0px;
+    left: 175px;
+    width:100%;
+    height: 125px;
+    background-color:#423F3E;
+    
+}
+
+#title-text{
+    color:#F3EFE0;
+    font-size: 60px;
+    margin-left: 100px;
+    margin-top: 31px;
+    
+}
+
+.mainMenu{
+    position: fixed;
+    height:100%;
+    width: 175px;
+    left:0px;
+    top:0px;
+    display: inline-block;
+    background-color: #2B2B2B;
+}
+
+#menu-text{
+    color:aliceblue;
+    font-size: 30px;
+    text-align: center;
+}
+
+#tic-tac-toe-select{
+    display: block;
+    margin: auto;
+    width: 120px;
+    height: 40px;
+}
+
+.Game-TTT{
+    display: flex;
+    flex-wrap: wrap;
+    
+    margin-top: 165px;
+    margin-left: 475px;
+    width: 450px;
+    position: fixed;
+}
+
+.tile{
+    display: block;
+    width: 125px;
+    height: 125px;
+    clear: both;
+}
+
+#tile-1, #tile-4, 
+#tile-2, #tile-5{
+    border-bottom: 7px solid #F3EFE0;
+    border-right: 7px solid #F3EFE0;
+}
+
+#tile-3, #tile-6{
+    border-bottom: 7px solid #F3EFE0;
+}
+
+#tile-7, #tile-8{
+    border-right: 7px solid #F3EFE0;
+}
+
+.Tile-Button{
+    /*visibility: hidden;*/
+    width: 125px;
+    height: 125px;
+    border: none;
+    background-color:#171010;
+}
+
+.Game-Menu{
+    bottom: 25px;
+    left: 200px;
+    width: 960px;
+    height: 125px;
+    position: absolute;
+    background-color: #423F3E;
+}

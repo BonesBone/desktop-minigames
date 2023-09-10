@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <link href="./style.css" rel="stylesheet"/>
+        
+    </head>
+
+    <body>
+        <div class="mainMenu">
+            <h1 id="menu-text">Minigames</h1>
+            <button id="tic-tac-toe-select">Tic-Tac-Toe</button>
+        </div>
+
+        
+        <div class="Title">
+            <h1 id="title-text">Tic Tac To V1.0.0</h1>
+        </div>
+
+        <div class="Game-TTT">
+            <!-- First Row -->
+            <div id="tile-1" class="tile">
+                <button id="tile-1-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-2" class="tile">
+                <button id="tile-2-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-3" class="tile">
+                <button id="tile-3-button" class="Tile-Button"></button>
+            </div>
+
+            <!-- Second Row -->
+            <div id="tile-4" class="tile">
+                <button id="tile-4-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-5" class="tile">
+                <button id="tile-5-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-6" class="tile">
+                <button id="tile-6-button" class="Tile-Button"></button>
+            </div>
+
+            <!-- Third Row -->
+            <div id="tile-7" class="tile">
+                <button id="tile-7-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-8" class="tile">
+                <button id="tile-8-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-9" class="tile">
+                <button id="tile-9-button" class="Tile-Button"></button>
+            </div>
+        </div>
+
+        <div class="Game-Menu">
+            <select name="game-mode" id="game-mode-select">
+                <option value="one-player">Single-player</option>
+                <option value="two-player">Two players</option>
+            </select>
+            
+            <input type="button" id="restart-button" name="restart-button" value="New Game">
+        </div>
+    </body>
+
+    <footer>
+        <p id="info">test</p>
+    </footer>
+    <script src="./renderer.js"></script>
+</html>

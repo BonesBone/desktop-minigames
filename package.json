@@ -1,0 +1,22 @@
+{
+  "name": "desktop-games",
+  "version": "1.0.0",
+  "description": "cool desktop games",
+  "main": "index.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BonesBone/desktop-minigame.git"
+  },
+  "author": "Corbin Webb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BonesBone/desktop-minigame/issues"
+  },
+  "homepage": "https://github.com/BonesBone/desktop-minigame#readme",
+  "devDependencies": {
+    "electron": "^26.2.0"
+  }
+}
