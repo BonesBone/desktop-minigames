@@ -4,7 +4,7 @@
   "description": "cool desktop games",
   "main": "index.js",
   "scripts": {
-    "test": "electron ."
+    "start": "electron ."
   },
   "repository": {
     "type": "git",

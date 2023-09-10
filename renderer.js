@@ -84,7 +84,9 @@ newGameButton.addEventListener("click", function(){
 
     resetBoard();
     isPlayersTurn = true;
+    gameIsRunning = true;
 });
+
 
 function resetBoard(){
     tileButtons.forEach(button => {
@@ -97,6 +99,7 @@ function resetBoard(){
         button.value = '';
         gameBoard[boardRow][boardCollumn] = '';
     });
+
 }
 
 
@@ -104,17 +107,21 @@ function resetBoard(){
     function for checking if the game has ended
 */
 function checkForWin(playerType){
-    //check for row wins
+    /*
+        check for collumn and row wins
+    */
     let numTiles = 0;
+    let numCollumTiles = [0,0,0];
     for(let i = 1; i < 10; i++){
         let boardRow = getRow(i);
         let boardCollumn = getCollumn(i);
 
         if(gameBoard[boardRow][boardCollumn] == playerType){
             numTiles++;
+            numCollumTiles[boardCollumn]++;
         }
 
-        if(numTiles == 3){
+        if(numTiles == 3 || numCollumTiles[boardCollumn] == 3){
             gameIsRunning = false;  
             return true;
         }
@@ -122,6 +129,24 @@ function checkForWin(playerType){
         if(i % 3 == 0){
             numTiles = 0;
         }
+    }
+
+    /*
+        check for diagonal win
+    */
+    let numDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+    for(let i = 0; i < 3; i++){
+        if(gameBoard[i][i] == playerType){
+            numDiagonalTiles['leftDiagonal'] += 1;
+        }
+        if(gameBoard[i][gameBoard.length-(i+1)] == playerType){
+            numDiagonalTiles['rightDiagonal'] += 1;
+        }
+    }
+
+    if(numDiagonalTiles['leftDiagonal'] == 3 || numDiagonalTiles['rightDiagonal'] == 3){
+        gameIsRunning = false;
+        return true;
     }
 
     return false;
@@ -140,6 +165,7 @@ function getRow(id){
     }
     
 }
+
 
 function getCollumn(id){
     if(typeof id == 'string'){
