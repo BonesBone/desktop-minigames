@@ -2,8 +2,8 @@
   "name": "tic-tac-toe",
   "productName": "tic-tac-toe",
   "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": "src/index.js",
+  "description": "x and o",
+  "main": "index.js",
   "scripts": {
     "start": "electron .",
     "package": "electron-forge package",
