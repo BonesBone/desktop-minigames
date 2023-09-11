@@ -29,40 +29,110 @@ tileButtons.forEach(button => {
         if(gameIsRunning){
             if(isPlayersTurn && button.value == ''){
             //do player 1 stuff
-                button.style.backgroundImage = "url(\"X.png\")";
-                button.value = 'x';
-                gameBoard[boardRow][boardCollumn] = 'x';
+                makeMove(1, button, boardRow, boardCollumn);
 
                 isPlayersTurn = false;
-                if(checkForWin('x')){
-                    alert("player 1 win");
+
+                winResult('x', 1);
+
+                if(isSinglePlayer && gameIsRunning){
+                    calculateMove('o', 'x');
+                    isPlayersTurn = true;
+                    winResult('o', 2);
                 }
 
+                
+                
             } else if(button.value == ''){
                 if(!isSinglePlayer){
                     //do player 2 stuff
-                    button.style.backgroundImage = 'url(\'O.png\')';
-                    button.value = 'o';
-                    gameBoard[boardRow][boardCollumn] = 'o';
+                    makeMove(2, button, boardRow, boardCollumn);
 
                     isPlayersTurn = true;
 
-                } else{
-                    //ai stuff whatver
-                    
-                    button.value = 'o';
-                    isPlayersTurn = true;
-                    
                 }
 
-                if(checkForWin('o')){
-                    alert("player 2 win");
-                }
+                winResult('o', 2)
             }
         }
         
     });
 });
+
+
+/*
+    function for the bot to calculate the move to play
+*/
+function calculateMove(botSign, playerSign){
+
+    let numBotTiles = 0;
+    let numPlayerTiles = 0;
+
+    let numBotCollumTiles = [0,0,0];
+    let numPlayerCollumTiles = [0,0,0];
+
+    let emptyRowTile = [0,0, document.getElementById("tile-1-button")];
+    let emptyCollumnTile = [0,0, document.getElementById("tile-1-button")];
+
+    let emptyTiles = [];
+    console.log("------");
+    for(let i = 1; i < 10; i++){
+        let boardRow = getRow(i);
+        let boardCollumn = getCollumn(i);
+
+        switch(gameBoard[boardRow][boardCollumn]){
+            case botSign:
+                numBotTiles++;
+                numBotCollumTiles[boardCollumn]++;
+                break;
+
+            case playerSign:
+                numPlayerTiles++;
+                numPlayerCollumTiles[boardCollumn]++;
+                break;
+
+            case '':
+                emptyRowTile = [boardRow, boardCollumn, document.getElementById("tile-" + i + "-button")];
+                emptyCollumnTile = [boardRow, boardCollumn, document.getElementById("tile-" + i + "-button")];
+                emptyTiles.push(emptyRowTile);
+                break;
+        }
+
+
+        if(i % 3 == 0){
+            if((numBotTiles == 2 || numPlayerTiles == 2) && numBotTiles + numPlayerTiles != 3){
+                makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
+                return;
+
+            }
+
+            numBotTiles = 0;
+            numPlayerTiles = 0;
+            numBotCollumTiles = [0,0,0];
+            numPlayerCollumTiles = [0,0,0];
+        }
+    }
+    /*console.log("[" + visuallizedBotBoard[0] + ", " + visuallizedBotBoard[1] + ", " + visuallizedBotBoard[2] + "]");
+    console.log("[" + visuallizedBotBoard[3] + ", " + visuallizedBotBoard[4] + ", " + visuallizedBotBoard[5] + "]");
+    console.log("[" + visuallizedBotBoard[6] + ", " + visuallizedBotBoard[7] + ", " + visuallizedBotBoard[8] + "]");
+    console.log("---------");*/
+    emptyTile = emptyTiles[Math.floor(Math.random()*emptyTiles.length)];
+    makeMove(2, emptyTile[2], emptyTile[0], emptyTile[1]);
+
+    /*
+        check for diagonal
+    */
+    /*
+    let numDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+    for(let i = 0; i < 3; i++){
+        if(gameBoard[i][i] == playerType){
+            numDiagonalTiles['leftDiagonal'] += 1;
+        }
+        if(gameBoard[i][gameBoard.length-(i+1)] == playerType){
+            numDiagonalTiles['rightDiagonal'] += 1;
+        }
+    }*/
+}
 
 /*
   function for creating a new game
@@ -104,7 +174,7 @@ function resetBoard(){
 
 
 /*
-    function for checking if the game has ended
+    function for checking if a player has won
 */
 function checkForWin(playerType){
     /*
@@ -153,6 +223,34 @@ function checkForWin(playerType){
 }
 
 
+function winResult(playerSign, player){
+    if(checkForWin(playerSign)){
+        alert("player " + player + " win");
+    } else {
+        checkForTie();
+    }
+}
+
+/*
+    function for checking if the game board is full
+*/
+function checkForTie(){
+    let hasEmptyTiles = false;
+    for(let i = 1; i < 10; i++){
+        let row = getRow(i);
+        let collumn = getCollumn(i);
+
+        if(gameBoard[row][collumn] == ''){
+            hasEmptyTiles = true;
+        }
+    }
+
+    if(!hasEmptyTiles){
+        gameIsRunning = false;
+        alert("Tie");
+    }
+}
+
 /*
     utility functions
 */
@@ -176,4 +274,16 @@ function getCollumn(id){
         
     }
     
+}
+
+
+function makeMove(player, button, row, collumn){
+    let playerSign = 'x';
+    if(player == 2){
+        playerSign = 'o';
+    }
+
+    button.style.backgroundImage = "url(\"" + playerSign + ".png\")";
+    button.value = playerSign;
+    gameBoard[row][collumn] = playerSign;
 }

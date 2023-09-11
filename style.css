@@ -91,3 +91,28 @@ html{
     position: absolute;
     background-color: #423F3E;
 }
+
+#restart-button{
+    margin-top:30px;
+    margin-left: 40px;
+    font-size: 17px;
+    
+}
+
+#game-mode-select{
+    margin-left: 25px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.GM-button{
+    width: 125px;
+    height: 65px;
+    background-color: #F3EFE0;
+    border: 4px solid #cbc8bc;
+    border-style: inset;
+
+    color: #222222;
+    font-family: cursive;
+    font-weight: bold;
+}
