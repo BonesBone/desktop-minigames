@@ -65,73 +65,115 @@ tileButtons.forEach(button => {
 */
 function calculateMove(botSign, playerSign){
 
-    let numBotTiles = 0;
-    let numPlayerTiles = 0;
+    let botRowTiles = 0;
+    let playerRowTiles = 0;
 
-    let numBotCollumTiles = [0,0,0];
-    let numPlayerCollumTiles = [0,0,0];
+    let botCollumTiles = [0,0,0];
+    let playerCollumTiles = [0,0,0];
 
-    let emptyRowTile = [0,0, document.getElementById("tile-1-button")];
-    let emptyCollumnTile = [0,0, document.getElementById("tile-1-button")];
+    let botDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+    let playerDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+
+    let emptyRowTile = [];
+    let emptyDiagonalTiles = [[0,0, getButtonId(1)], [0,0, getButtonId(1)]];
 
     let emptyTiles = [];
-    console.log("------");
+    let emptyCollumnTiles = [[],[],[]];
     for(let i = 1; i < 10; i++){
         let boardRow = getRow(i);
         let boardCollumn = getCollumn(i);
 
         switch(gameBoard[boardRow][boardCollumn]){
             case botSign:
-                numBotTiles++;
-                numBotCollumTiles[boardCollumn]++;
+                botRowTiles++;
+                botCollumTiles[boardCollumn]++;
+
+                if(boardRow == boardCollumn){
+                    botDiagonalTiles['leftDiagonal']++;
+                } else if(boardRow == 2 - boardCollumn){
+                    botDiagonalTiles['rightDiagonal']++;
+                }
                 break;
 
             case playerSign:
-                numPlayerTiles++;
-                numPlayerCollumTiles[boardCollumn]++;
+                playerRowTiles++;
+                playerCollumTiles[boardCollumn]++;
+
+                if(boardRow == boardCollumn){
+                    playerDiagonalTiles['leftDiagonal']++;
+                } else if(boardRow == 2 - boardCollumn){
+                    playerDiagonalTiles['rightDiagonal']++;
+                }
                 break;
 
             case '':
-                emptyRowTile = [boardRow, boardCollumn, document.getElementById("tile-" + i + "-button")];
-                emptyCollumnTile = [boardRow, boardCollumn, document.getElementById("tile-" + i + "-button")];
+                emptyRowTile = [boardRow, boardCollumn, getButtonId(i)];
+                emptyCollumnTiles[boardCollumn] = [boardRow, boardCollumn, getButtonId(i)];
                 emptyTiles.push(emptyRowTile);
+
+                if(boardRow == boardCollumn){
+                    emptyDiagonalTiles[0] = [boardRow, boardCollumn, getButtonId(i)];
+                }
+                if(boardRow == 2 - boardCollumn){
+                    emptyDiagonalTiles[1] = [boardRow, boardCollumn, getButtonId(i)];
+                }
+                
                 break;
         }
 
-
-        if(i % 3 == 0){
-            if((numBotTiles == 2 || numPlayerTiles == 2) && numBotTiles + numPlayerTiles != 3){
-                makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
+        /*
+            at the end of each row of the board, check for winning moves and moves to block the player
+        */
+        if(i == 7 || i == 9){ //check diagonal ↓
+            //check diagonal moves, left to right
+            if(botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] == 2){
+                alert(emptyDiagonalTiles[0]);
+                makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
                 return;
-
             }
 
-            numBotTiles = 0;
-            numPlayerTiles = 0;
-            numBotCollumTiles = [0,0,0];
-            numPlayerCollumTiles = [0,0,0];
+            //checkl diagonal moves, right to left
+            if(botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] == 2){
+                alert(emptyDiagonalTiles[1]);
+                makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
+                return;
+            }
+        }
+
+        if(i > 6){ //check collumns ↓
+            //check for winning moves
+            if(botCollumTiles[boardCollumn] == 2 && playerCollumTiles[boardCollumn] == 0){
+                makeMove(2, emptyCollumnTiles[boardCollumn][2], emptyCollumnTiles[boardCollumn][0], emptyCollumnTiles[boardCollumn][1]);
+                return;
+            }
+
+            //check for blockage oppertunities
+            if(playerCollumTiles[boardCollumn] == 2 && botCollumTiles[boardCollumn] == 0){
+                makeMove(2, emptyCollumnTiles[boardCollumn][2], emptyCollumnTiles[boardCollumn][0], emptyCollumnTiles[boardCollumn][1]);
+                return;
+            }
+
+        }
+        
+        if(i % 3 == 0){ //check row ↓
+            //check for winning move
+            if(botRowTiles == 2 && playerRowTiles == 0){
+                makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
+                return;
+            }
+
+            //check for blockage oppertunities
+            if(playerRowTiles == 2 && botRowTiles == 0){
+                makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
+                return;
+            }
+
+            botRowTiles = 0;
+            playerRowTiles = 0;
         }
     }
-    /*console.log("[" + visuallizedBotBoard[0] + ", " + visuallizedBotBoard[1] + ", " + visuallizedBotBoard[2] + "]");
-    console.log("[" + visuallizedBotBoard[3] + ", " + visuallizedBotBoard[4] + ", " + visuallizedBotBoard[5] + "]");
-    console.log("[" + visuallizedBotBoard[6] + ", " + visuallizedBotBoard[7] + ", " + visuallizedBotBoard[8] + "]");
-    console.log("---------");*/
-    emptyTile = emptyTiles[Math.floor(Math.random()*emptyTiles.length)];
+    let emptyTile = emptyTiles[Math.floor(Math.random()*emptyTiles.length)];
     makeMove(2, emptyTile[2], emptyTile[0], emptyTile[1]);
-
-    /*
-        check for diagonal
-    */
-    /*
-    let numDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
-    for(let i = 0; i < 3; i++){
-        if(gameBoard[i][i] == playerType){
-            numDiagonalTiles['leftDiagonal'] += 1;
-        }
-        if(gameBoard[i][gameBoard.length-(i+1)] == playerType){
-            numDiagonalTiles['rightDiagonal'] += 1;
-        }
-    }*/
 }
 
 /*
@@ -286,4 +328,9 @@ function makeMove(player, button, row, collumn){
     button.style.backgroundImage = "url(\"" + playerSign + ".png\")";
     button.value = playerSign;
     gameBoard[row][collumn] = playerSign;
+}
+
+
+function getButtonId(btnNumber){
+    return document.getElementById("tile-" + btnNumber + "-button");
 }
