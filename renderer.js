@@ -71,8 +71,8 @@ function calculateMove(botSign, playerSign){
     let botCollumTiles = [0,0,0];
     let playerCollumTiles = [0,0,0];
 
-    let botDiagonalTiles = [0,0];
-    let playerDiagonalTiles = [0,0];
+    let botDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+    let playerDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
 
     let emptyRowTile = [];
     let emptyDiagonalTiles = [[], []];
@@ -90,7 +90,8 @@ function calculateMove(botSign, playerSign){
 
                 if(boardRow == boardCollumn){
                     botDiagonalTiles['leftDiagonal']++;
-                } else if(boardRow == 2 - boardCollumn){
+                }
+                if(boardRow == 2 - boardCollumn){
                     botDiagonalTiles['rightDiagonal']++;
                 }
                 break;
@@ -101,7 +102,8 @@ function calculateMove(botSign, playerSign){
 
                 if(boardRow == boardCollumn){
                     playerDiagonalTiles['leftDiagonal']++;
-                } else if(boardRow == 2 - boardCollumn){
+                }
+                if(boardRow == 2 - boardCollumn){
                     playerDiagonalTiles['rightDiagonal']++;
                 }
                 break;
@@ -127,15 +129,18 @@ function calculateMove(botSign, playerSign){
         */
         if(i == 7 || i == 9){ //check diagonal ↓
             //check diagonal moves, left to right
-            if(botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] == 2){
-                //alert("--> " + emptyDiagonalTiles);
+            //alert("left, b: " + botDiagonalTiles['leftDiagonal'] + ", p: " + playerDiagonalTiles['leftDiagonal']);
+
+            //alert("right, b: " + botDiagonalTiles['rightDiagonal'] + ", p: " + playerDiagonalTiles['rightDiagonal']);
+            if((botDiagonalTiles['leftDiagonal'] == 2 || playerDiagonalTiles['leftDiagonal'] == 2) && botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] != 3){
+                alert("<-- " + emptyDiagonalTiles);
                 makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
                 return;
             }
 
             //checkl diagonal moves, right to left
-            if(botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] == 2){
-                //alert("--> " + emptyDiagonalTiles[1]);
+            if((botDiagonalTiles['rightDiagonal'] == 2 || playerDiagonalTiles['rightDiagonal'] == 2) && botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] != 3){
+                alert("--> " + emptyDiagonalTiles[1]);
                 makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
                 return;
             }
