@@ -54,18 +54,32 @@
 
         <div class="Game-Menu">
             <select name="game-mode" id="game-mode-select" class="GM-button">
+                <option value="" disabled selected hidden>Game-mode</option>
                 <option value="one-player">Single-player</option>
                 <option value="two-player">Two players</option>
+            </select>
+
+            <select name="player-sign" id="player-sign-select" class="GM-button">
+                <option value="" disabled selected hidden>Player Symbol</option>
+                <option value="x o" disabled>X & O</option>
             </select>
             
             <input type="button" id="restart-button" name="restart-button" value="New Game" class="GM-button">
 
+            <p id="Player-1-SL">Player-1</p>
+            <p id="Player-2-SL">Player-2</p>
+            <p id="tie-SL">Tie</p>
 
+            <div id="score-seperator"></div>
+
+            <p id="player-1-score">0</p>
+            <p id="player-2-score">0</p>
+            <p id="tie-score">0</p>
         </div>
     </body>
 
     <footer>
         <p id="info">test</p>
     </footer>
-    <script src="./renderer.js"></script>
+    <script src="./TTTGameFunctions.js"></script>
 </html>

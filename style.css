@@ -94,7 +94,8 @@ html{
 
 #restart-button{
     margin-top:30px;
-    margin-left: 40px;
+    /*margin-left: 40px;*/
+    margin-left: 20px;
     font-size: 17px;
     
 }
@@ -115,4 +116,57 @@ html{
     color: #222222;
     font-family: cursive;
     font-weight: bold;
+}
+
+#player-sign-select{
+    margin-left: 20px;
+}
+
+#Player-1-SL, #Player-2-SL, #player-1-score, #player-2-score, #tie-SL, #tie-score{
+    display: inline-block;
+    position:fixed;
+    width: 150px;
+    height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: cursive;
+    color: #F3EFE0;
+    margin-left: 50px;
+    margin-top:5px;
+}
+
+#Player-2-SL{
+    margin-left: 325px;
+}
+
+#tie-SL{
+    margin-left: 225px;
+}
+
+#score-seperator{
+    position: fixed;
+    display: inline-block;
+    margin-top: 55px;
+    margin-left: 30px;
+    width: 450px;
+    height: 5px;
+    background-color: #F3EFE0;
+}
+
+#player-1-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 95px;
+}
+
+#player-2-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 385px;
+}
+
+#tie-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 240px;
 }

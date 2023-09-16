@@ -6,6 +6,8 @@ isSinglePlayer = false;
 isPlayersTurn = true;
 gameIsRunning = true;
 
+playerScores = [0,0,0];
+
 //represent the board of the game
 let gameBoard = [
     ['', '', ''],
@@ -114,7 +116,7 @@ function calculateMove(botSign, playerSign){
                 emptyTiles.push(emptyRowTile);
 
                 if(boardRow == boardCollumn){
-                    emptyDiagonalTiles[0] = [boardRow, boardCollumn, getButtonId(i)];                    
+                    emptyDiagonalTiles[0] = [boardRow, boardCollumn, getButtonId(i)];                
                 }
                 if(boardRow == 2 - boardCollumn){
                     emptyDiagonalTiles[1] = [boardRow, boardCollumn, getButtonId(i)];
@@ -122,53 +124,49 @@ function calculateMove(botSign, playerSign){
                 
                 break;
         }
-        //alert(emptyDiagonalTiles[0], + " ------> " + emptyDiagonalTiles[1]);
+
 
         /*
-            at the end of each row of the board, check for winning moves and moves to block the player
+            at the end of each diagonal row of the board, check for winning moves and moves to block the player
         */
-        if(i == 7 || i == 9){ //check diagonal ↓
-            //check diagonal moves, left to right
-            //alert("left, b: " + botDiagonalTiles['leftDiagonal'] + ", p: " + playerDiagonalTiles['leftDiagonal']);
-
-            //alert("right, b: " + botDiagonalTiles['rightDiagonal'] + ", p: " + playerDiagonalTiles['rightDiagonal']);
-            if((botDiagonalTiles['leftDiagonal'] == 2 || playerDiagonalTiles['leftDiagonal'] == 2) && botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] != 3){
-                alert("<-- " + emptyDiagonalTiles);
-                makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
-                return;
-            }
-
-            //checkl diagonal moves, right to left
-            if((botDiagonalTiles['rightDiagonal'] == 2 || playerDiagonalTiles['rightDiagonal'] == 2) && botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] != 3){
-                alert("--> " + emptyDiagonalTiles[1]);
+        if(i == 7){ //check right to left diagonal ↓
+            if((botDiagonalTiles['rightDiagonal'] == 2 || playerDiagonalTiles['rightDiagonal'] == 2) && botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] < 3){
                 makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
                 return;
             }
+           
+        } else if(i == 9){ //check left to right diagonal ↓
+             if((botDiagonalTiles['leftDiagonal'] == 2 || playerDiagonalTiles['leftDiagonal'] == 2) && botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] < 3){
+                makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
+                return;
+            }
+            
         }
 
-        if(i > 6){ //check collumns ↓
-            //check for winning moves
+        /*
+            at the end of each row or collumn, check for winning moves and moves to block the player
+            winning moves are prioritized first, then blocking moves
+        */
+        if(i > 6){ //check collumns for winning moves ↓
             if(botCollumTiles[boardCollumn] == 2 && playerCollumTiles[boardCollumn] == 0){
                 makeMove(2, emptyCollumnTiles[boardCollumn][2], emptyCollumnTiles[boardCollumn][0], emptyCollumnTiles[boardCollumn][1]);
                 return;
             }
-
-            //check for blockage oppertunities
-            if(playerCollumTiles[boardCollumn] == 2 && botCollumTiles[boardCollumn] == 0){
-                makeMove(2, emptyCollumnTiles[boardCollumn][2], emptyCollumnTiles[boardCollumn][0], emptyCollumnTiles[boardCollumn][1]);
-                return;
-            }
-
         }
-        
-        if(i % 3 == 0){ //check row ↓
-            //check for winning move
+        if(i % 3 == 0){ //check rows for winning moves ↓
             if(botRowTiles == 2 && playerRowTiles == 0){
                 makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
                 return;
             }
-
-            //check for blockage oppertunities
+        }
+        
+        if(i > 6){ //check collumns for blocking moves ↓
+            if(playerCollumTiles[boardCollumn] == 2 && botCollumTiles[boardCollumn] == 0){
+                makeMove(2, emptyCollumnTiles[boardCollumn][2], emptyCollumnTiles[boardCollumn][0], emptyCollumnTiles[boardCollumn][1]);
+                return;
+            }            
+        }
+        if(i % 3 == 0){ //check rows for blocking moves ↓
             if(playerRowTiles == 2 && botRowTiles == 0){
                 makeMove(2, emptyRowTile[2], emptyRowTile[0], emptyRowTile[1]);
                 return;
@@ -182,6 +180,8 @@ function calculateMove(botSign, playerSign){
     makeMove(2, emptyTile[2], emptyTile[0], emptyTile[1]);
 }
 
+
+
 /*
   function for creating a new game
 */
@@ -191,13 +191,19 @@ newGameButton.addEventListener("click", function(){
     //resets the board and sets the gamemode
     let gameMode = document.getElementById("game-mode-select").value;
     if(gameMode == "one-player"){
-        isSinglePlayer = true;
+        if(!isSinglePlayer){
+            resetScores();
+            isSinglePlayer = true;
+        }
 
     } else if(gameMode == "two-player"){
-        isSinglePlayer = false;
+        if(isSinglePlayer){
+            resetScores();
+            isSinglePlayer = false;
+        }
 
-    } else{
-        alert("error");
+    } else {
+        return;
     }
 
     resetBoard();
@@ -217,7 +223,6 @@ function resetBoard(){
         button.value = '';
         gameBoard[boardRow][boardCollumn] = '';
     });
-
 }
 
 
@@ -274,6 +279,10 @@ function checkForWin(playerType){
 function winResult(playerSign, player){
     if(checkForWin(playerSign)){
         alert("player " + player + " win");
+
+        playerScores[player-1]++;
+        document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];
+
     } else {
         checkForTie();
     }
@@ -296,7 +305,20 @@ function checkForTie(){
     if(!hasEmptyTiles){
         gameIsRunning = false;
         alert("Tie");
+
+        playerScores[2]++;
+        document.getElementById("tie-score").textContent = playerScores[2];
     }
+}
+
+/*
+    resets the scores
+*/
+function resetScores(){
+    playerScores = [0,0,0];
+    document.getElementById("player-1-score").textContent = 0;
+    document.getElementById("player-2-score").textContent = 0;
+    document.getElementById("tie-score").textContent = 0;
 }
 
 /*
