@@ -71,11 +71,11 @@ function calculateMove(botSign, playerSign){
     let botCollumTiles = [0,0,0];
     let playerCollumTiles = [0,0,0];
 
-    let botDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
-    let playerDiagonalTiles = {'leftDiagonal': 0, 'rightDiagonal': 0};
+    let botDiagonalTiles = [0,0];
+    let playerDiagonalTiles = [0,0];
 
     let emptyRowTile = [];
-    let emptyDiagonalTiles = [[0,0, getButtonId(1)], [0,0, getButtonId(1)]];
+    let emptyDiagonalTiles = [[], []];
 
     let emptyTiles = [];
     let emptyCollumnTiles = [[],[],[]];
@@ -112,7 +112,7 @@ function calculateMove(botSign, playerSign){
                 emptyTiles.push(emptyRowTile);
 
                 if(boardRow == boardCollumn){
-                    emptyDiagonalTiles[0] = [boardRow, boardCollumn, getButtonId(i)];
+                    emptyDiagonalTiles[0] = [boardRow, boardCollumn, getButtonId(i)];                    
                 }
                 if(boardRow == 2 - boardCollumn){
                     emptyDiagonalTiles[1] = [boardRow, boardCollumn, getButtonId(i)];
@@ -120,6 +120,7 @@ function calculateMove(botSign, playerSign){
                 
                 break;
         }
+        //alert(emptyDiagonalTiles[0], + " ------> " + emptyDiagonalTiles[1]);
 
         /*
             at the end of each row of the board, check for winning moves and moves to block the player
@@ -127,14 +128,14 @@ function calculateMove(botSign, playerSign){
         if(i == 7 || i == 9){ //check diagonal ↓
             //check diagonal moves, left to right
             if(botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] == 2){
-                alert(emptyDiagonalTiles[0]);
+                //alert("--> " + emptyDiagonalTiles);
                 makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
                 return;
             }
 
             //checkl diagonal moves, right to left
             if(botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] == 2){
-                alert(emptyDiagonalTiles[1]);
+                //alert("--> " + emptyDiagonalTiles[1]);
                 makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
                 return;
             }
