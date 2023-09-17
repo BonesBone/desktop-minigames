@@ -353,7 +353,7 @@ function makeMove(player, button, row, collumn){
         playerSign = 'o';
     }
 
-    button.style.backgroundImage = "url(\"" + playerSign + ".png\")";
+    button.style.backgroundImage = "url(\"./TicTacToe/" + playerSign + ".png\")";
     button.value = playerSign;
     gameBoard[row][collumn] = playerSign;
 }
