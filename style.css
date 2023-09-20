@@ -44,7 +44,7 @@ html{
 }
 
 #tic-tac-toe-select, #hangman-select, #menu-select{
-    display: inline-flex;
+    display: flexbox;
     width: 160px;
     height: 60px;
     margin-top: 40px;
@@ -54,25 +54,21 @@ html{
     outline: none;
     overflow: hidden;
     cursor: pointer;
+
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-content: center;
 }
 
 #menu-select{
     background: #2cdada;
 }
 
-#menu-select-text, #menu-select-icon{
-    display: inline-flex;
-    align-items: center;
-    padding: 0px 5px;
-    border: none;
-    height: 100%;
-    color:#222222;
+#tic-tac-toe-select{
+    background-color: rgb(255, 221, 50);
 }
 
-#menu-select-icon{
-    font-size: 1.65em;
-    background: rgba(0,0,0,0.08);
+#hangman-select{
+    background-color: rgb(250, 72, 111);
 }
 
 .Game-TTT{
