@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script >
+        $.get("index.html", function(data){
+            $('#page-defaults').html(data);
+            $('.Title').children('h1').text('Tic Tac Toe V0.9');
+            $('.menu-only').remove();
+        });
+    </script>
+
+    <head>
+        <link rel="stylesheet" href="./TTTStyle.css"/>
+        <link href="./style.css" rel="stylesheet"/>
+    </head>
+
+    <div id="page-defaults"></div>
+        
+    <body>
+        
+
+        <div class="Game-TTT">
+            <!-- First Row -->
+            <div id="tile-1" class="tile">
+                <button id="tile-1-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-2" class="tile">
+                <button id="tile-2-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-3" class="tile">
+                <button id="tile-3-button" class="Tile-Button"></button>
+            </div>
+
+            <!-- Second Row -->
+            <div id="tile-4" class="tile">
+                <button id="tile-4-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-5" class="tile">
+                <button id="tile-5-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-6" class="tile">
+                <button id="tile-6-button" class="Tile-Button"></button>
+            </div>
+
+            <!-- Third Row -->
+            <div id="tile-7" class="tile">
+                <button id="tile-7-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-8" class="tile">
+                <button id="tile-8-button" class="Tile-Button"></button>
+            </div>
+            <div id="tile-9" class="tile">
+                <button id="tile-9-button" class="Tile-Button"></button>
+            </div>
+        </div>
+
+        <div class="Game-Menu">
+            <select name="game-mode" id="game-mode-select" class="GM-button">
+                <option value="" disabled selected hidden>Game-mode</option>
+                <option value="one-player">Single-player</option>
+                <option value="two-player">Two players</option>
+            </select>
+
+            <select name="player-sign" id="player-sign-select" class="GM-button">
+                <option value="" disabled selected hidden>Player Symbol</option>
+                <option value="x o" disabled>X & O</option>
+            </select>
+            
+            <input type="button" id="restart-button" name="restart-button" value="New Game" class="GM-button">
+
+            <p id="Player-1-SL">Player-1</p>
+            <p id="Player-2-SL">Player-2</p>
+            <p id="tie-SL">Tie</p>
+
+            <div id="score-seperator"></div>
+
+            <p id="player-1-score">0</p>
+            <p id="player-2-score">0</p>
+            <p id="tie-score">0</p>
+        </div>
+    </body>
+
+    <footer>
+        <p id="info">test</p>
+    </footer>
+    <script src="./TicTacToe/TTTGameFunctions.js"></script>
+</html>

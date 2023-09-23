@@ -1,0 +1,142 @@
+html{
+    background-color: #171010;
+}
+
+.Title{
+    background-color:#423F3E;
+}
+
+#title-text{
+    color:#F3EFE0;
+    font-size: 60px;
+    margin-left: 100px;
+    margin-top: 31px;
+    
+}
+
+.Game-TTT{
+    display: flex;
+    flex-wrap: wrap;
+    
+    margin-top: 165px;
+    margin-left: 495px;
+    width: 450px;
+    position: fixed;
+}
+
+.tile{
+    display: block;
+    width: 125px;
+    height: 125px;
+    clear: both;
+}
+
+#tile-1, #tile-4, 
+#tile-2, #tile-5{
+    border-bottom: 7px solid #F3EFE0;
+    border-right: 7px solid #F3EFE0;
+}
+
+#tile-3, #tile-6{
+    border-bottom: 7px solid #F3EFE0;
+}
+
+#tile-7, #tile-8{
+    border-right: 7px solid #F3EFE0;
+}
+
+.Tile-Button{
+    /*visibility: hidden;*/
+    width: 125px;
+    height: 125px;
+    border: none;
+    background-color:#171010;
+}
+
+.Game-Menu{
+    bottom: 25px;
+    left: 220px;
+    width: 940px;
+    height: 125px;
+    position: absolute;
+    background-color: #423F3E;
+}
+
+#restart-button{
+    margin-top:30px;
+    /*margin-left: 40px;*/
+    margin-left: 20px;
+    font-size: 17px;
+    
+}
+
+#game-mode-select{
+    margin-left: 25px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.GM-button{
+    width: 125px;
+    height: 65px;
+    background-color: #F3EFE0;
+    border: 4px solid #cbc8bc;
+    border-style: inset;
+
+    color: #222222;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+#player-sign-select{
+    margin-left: 20px;
+}
+
+#Player-1-SL, #Player-2-SL, #player-1-score, #player-2-score, #tie-SL, #tie-score{
+    display: inline-block;
+    position:fixed;
+    width: 150px;
+    height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: cursive;
+    color: #F3EFE0;
+    margin-left: 50px;
+    margin-top:5px;
+}
+
+#Player-2-SL{
+    margin-left: 325px;
+}
+
+#tie-SL{
+    margin-left: 225px;
+}
+
+#score-seperator{
+    position: fixed;
+    display: inline-block;
+    margin-top: 55px;
+    margin-left: 30px;
+    width: 450px;
+    height: 5px;
+    background-color: #F3EFE0;
+}
+
+#player-1-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 95px;
+}
+
+#player-2-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 385px;
+}
+
+#tie-score{
+    margin-top: 60px;
+    font-size: 40px;
+    margin-left: 240px;
+}

@@ -3,7 +3,7 @@
     
     <head>
         <link href="./style.css" rel="stylesheet"/>
-        
+        <link rel="stylesheet" href="MenuStyle.css" class="menu-only">
     </head>
 
     <body>
@@ -11,81 +11,17 @@
             <h1 id="menu-text">Minigames</h1>
 
             <span id="select-buttons">
-                <button id="menu-select">Main Menu</button>
+                <button id="menu-select" onclick="location.href='./index.html'">Main Menu</button>
 
-                <button id="tic-tac-toe-select">Tic Tac Toe</button>
+                <button id="tic-tac-toe-select" onclick="location.href='./TTT.html'">Tic Tac Toe</button>
                 <button id="hangman-select">Hangman</button>
             </span>
         </div>
 
         
         <div class="Title">
-            <h1 id="title-text">Tic Tac To V1.0.0</h1>
+            <h1 id="title-text">Desktop minigames V0.7.2</h1>
         </div>
 
-        <div class="Game-TTT">
-            <!-- First Row -->
-            <div id="tile-1" class="tile">
-                <button id="tile-1-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-2" class="tile">
-                <button id="tile-2-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-3" class="tile">
-                <button id="tile-3-button" class="Tile-Button"></button>
-            </div>
-
-            <!-- Second Row -->
-            <div id="tile-4" class="tile">
-                <button id="tile-4-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-5" class="tile">
-                <button id="tile-5-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-6" class="tile">
-                <button id="tile-6-button" class="Tile-Button"></button>
-            </div>
-
-            <!-- Third Row -->
-            <div id="tile-7" class="tile">
-                <button id="tile-7-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-8" class="tile">
-                <button id="tile-8-button" class="Tile-Button"></button>
-            </div>
-            <div id="tile-9" class="tile">
-                <button id="tile-9-button" class="Tile-Button"></button>
-            </div>
-        </div>
-
-        <div class="Game-Menu">
-            <select name="game-mode" id="game-mode-select" class="GM-button">
-                <option value="" disabled selected hidden>Game-mode</option>
-                <option value="one-player">Single-player</option>
-                <option value="two-player">Two players</option>
-            </select>
-
-            <select name="player-sign" id="player-sign-select" class="GM-button">
-                <option value="" disabled selected hidden>Player Symbol</option>
-                <option value="x o" disabled>X & O</option>
-            </select>
-            
-            <input type="button" id="restart-button" name="restart-button" value="New Game" class="GM-button">
-
-            <p id="Player-1-SL">Player-1</p>
-            <p id="Player-2-SL">Player-2</p>
-            <p id="tie-SL">Tie</p>
-
-            <div id="score-seperator"></div>
-
-            <p id="player-1-score">0</p>
-            <p id="player-2-score">0</p>
-            <p id="tie-score">0</p>
-        </div>
-    </body>
-
-    <footer>
-        <p id="info">test</p>
-    </footer>
-    <script src="./TicTacToe/TTTGameFunctions.js"></script>
+        
 </html>
