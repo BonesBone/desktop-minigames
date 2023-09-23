@@ -1,11 +1,76 @@
 html{
-    background-color: #0e0e14;
+    background-color: #0c0c1b;
 }
 
 .Title{
-    background-color:rgb(57, 63, 65);
+    background-color:rgb(59, 70, 74);
 }
 
 #title-text{
     color:aliceblue;
+}
+
+#welcome-text{
+    display: flexbox;
+    flex-direction: column;
+    align-content: center;
+
+    margin-left: 445px;
+    margin-top: 150px;
+    width: 500px;
+    height: 200px;
+}
+
+#welcome-text h1{
+    margin: 0%;
+    font-size: 125px;
+    text-align: center;
+    color: aliceblue;
+}
+
+#welcome-text p{
+    margin: 0%;
+    font-size: 30px;
+    text-align: center;
+    color: aliceblue;
+}
+
+#welcome-buttons{
+    display: flexbox;
+    flex-direction: column;
+    align-content: center;
+
+    width: 300px;
+    height: fit-content;
+    margin-top: 25px;
+    margin-left: 545px;
+}
+
+#welcome-buttons button{
+    width: 300px;
+    margin-bottom: 25px;
+    height: 75px;
+
+    background-color: aliceblue;
+    color: #0c0c1b;
+    border-radius: 20px;
+    border: 7px double;
+
+    font-size: 35px;
+}
+
+#welcome-buttons button:active{
+    background-color: rgb(185, 192, 198);
+}
+
+#credits{
+    display: flex;
+    position: absolute;
+    margin-left: 545px;
+    width: 300px;
+    height: 50px;
+
+    justify-content: center;
+    font-size: 12px;
+    color: aliceblue;
 }
