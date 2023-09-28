@@ -223,6 +223,8 @@ function resetBoard(){
         button.value = '';
         gameBoard[boardRow][boardCollumn] = '';
     });
+
+    hideWin()
 }
 
 
@@ -278,7 +280,7 @@ function checkForWin(playerType){
 
 function winResult(playerSign, player){
     if(checkForWin(playerSign)){
-        alert("player " + player + " win");
+        showWin("Player " + player + " wins")
 
         playerScores[player-1]++;
         document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];
@@ -304,7 +306,7 @@ function checkForTie(){
 
     if(!hasEmptyTiles){
         gameIsRunning = false;
-        alert("Tie");
+        showWin("Tie")
 
         playerScores[2]++;
         document.getElementById("tie-score").textContent = playerScores[2];
@@ -320,6 +322,22 @@ function resetScores(){
     document.getElementById("player-2-score").textContent = 0;
     document.getElementById("tie-score").textContent = 0;
 }
+
+/*
+    Show the win/lose screen
+*/
+winSplash = document.getElementById("win-splash")
+function showWin(winText){
+    document.getElementById("win-splash-text").innerText = winText
+    winSplash.style.visibility = 'visible';
+}
+
+function hideWin(){
+    winSplash.style.visibility = 'hidden';
+}
+
+winSplash.addEventListener("click", hideWin)
+
 
 /*
     utility functions

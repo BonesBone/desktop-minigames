@@ -136,3 +136,27 @@ html{
     font-size: 40px;
     margin-left: 240px;
 }
+
+#win-splash{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+
+    margin-top: 296px;
+    margin-left: 495px;
+    width: 372px;
+    height: 110px;
+
+    background-color: #F3EFE0;
+    border: 8px solid #cbc8bc;
+    border-style: inset;
+    visibility:hidden;
+}
+
+#win-splash-text {
+    font-size: 50px;
+    font-family: cursive;
+    color: #222222;
+    margin: 0px 0px;
+    align-self: center;
+}
