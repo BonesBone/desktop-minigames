@@ -91,3 +91,15 @@ html{
     border: 20px double;
    
 }
+
+#statistics h1{
+    margin-left: 30px;
+    
+    color: aliceblue;
+}
+
+#TTT-stats-title{
+    font-size: 65px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}

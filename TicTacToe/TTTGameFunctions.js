@@ -16,8 +16,13 @@ let gameBoard = [
 ];
 const tileButtons = document.querySelectorAll(".Tile-Button");
 
+//current selected row and collumn of the board
 boardRow = 0;
 boardCollumn = 0;
+
+//statistics variables
+gamesWon = [0,0] //first value = player 1 wins, second value = player 2 wins
+gamesTied = 0
 
 tileButtons.forEach(button => {
     button.addEventListener("click", function(){
@@ -285,6 +290,8 @@ function winResult(playerSign, player){
         playerScores[player-1]++;
         document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];
 
+        gamesWon[player-1]++
+        
     } else {
         checkForTie();
     }
@@ -310,6 +317,8 @@ function checkForTie(){
 
         playerScores[2]++;
         document.getElementById("tie-score").textContent = playerScores[2];
+
+        gamesTied++
     }
 }
 
