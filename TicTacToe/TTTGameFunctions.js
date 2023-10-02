@@ -333,12 +333,14 @@ function resetScores(){
 }
 
 /*
-    Show the win/lose screen
+    Show the win/lose screen, save win and tie data
 */
 winSplash = document.getElementById("win-splash")
 function showWin(winText){
     document.getElementById("win-splash-text").innerText = winText
     winSplash.style.visibility = 'visible';
+
+    saveData()
 }
 
 function hideWin(){
@@ -350,6 +352,8 @@ winSplash.addEventListener("click", hideWin)
 
 /*
     utility functions
+
+    gets the row of the board using the button element passed
 */
 function getRow(id){
     if(typeof id == 'string'){
@@ -361,7 +365,7 @@ function getRow(id){
     
 }
 
-
+//get the collumn of the board using the button element passed
 function getCollumn(id){
     if(typeof id == 'string'){
         let buttonNumber = parseInt(id.charAt(id.length - 1));
@@ -389,3 +393,22 @@ function makeMove(player, button, row, collumn){
 function getButtonId(btnNumber){
     return document.getElementById("tile-" + btnNumber + "-button");
 }
+
+
+const { ipcMain, ipcRenderer } = require('electron');
+/*
+    Saving data:
+        for simple statistics data, electron-store is used to save data
+*/
+
+/*const Store = require('electron-store')
+const storage = new Store()
+
+function saveData(){
+    storage.set('Player1Wins', storage.get('Player1Wins', 0) + gamesWon[0])
+    storage.set('Player2Wins', storage.get('Player2Wins', 0) + gamesWon[1])
+    storage.set('gamesTied', storage.get('gamesTied', 0) + gamesTied)    
+    console.log('games won: ' + storage.get('Player1Wins', 999999))
+
+    ipcRenderer.send('save-TTT-data', gamesWon, gamesTied)
+}*/

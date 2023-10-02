@@ -25,3 +25,8 @@ contextBridge.exposeInMainWorld('versions', {
   // we can also expose variables, not just functions
 })
 */
+const { contextBridge, ipcRenderer } = require('electron')
+
+contextBridge.exposeInMainWorld('electronAPI', {
+  saveTTTData: (gamesWon, gamesTied) => ipcRenderer.send('save-TTT-data', gamesWon, gamesTied)
+})
