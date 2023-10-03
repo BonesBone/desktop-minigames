@@ -21,8 +21,7 @@ boardRow = 0;
 boardCollumn = 0;
 
 //statistics variables
-gamesWon = [0,0] //first value = player 1 wins, second value = player 2 wins
-gamesTied = 0
+gameResultData = [0,0,0] //1st value = player 1 wins, 2nd value = player 2 wins, 3rd value = games tied
 
 tileButtons.forEach(button => {
     button.addEventListener("click", function(){
@@ -290,7 +289,7 @@ function winResult(playerSign, player){
         playerScores[player-1]++;
         document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];
 
-        gamesWon[player-1]++
+        gameResultData[player-1]++
         
     } else {
         checkForTie();
@@ -318,7 +317,7 @@ function checkForTie(){
         playerScores[2]++;
         document.getElementById("tie-score").textContent = playerScores[2];
 
-        gamesTied++
+        gameResultData[2]++
     }
 }
 
@@ -395,20 +394,17 @@ function getButtonId(btnNumber){
 }
 
 
-const { ipcMain, ipcRenderer } = require('electron');
+//const { ipcMain, ipcRenderer } = require('electron');
 /*
     Saving data:
         for simple statistics data, electron-store is used to save data
 */
 
-/*const Store = require('electron-store')
-const storage = new Store()
+//const Store = require('electron-store')
+//const storage = new Store()
 
 function saveData(){
-    storage.set('Player1Wins', storage.get('Player1Wins', 0) + gamesWon[0])
-    storage.set('Player2Wins', storage.get('Player2Wins', 0) + gamesWon[1])
-    storage.set('gamesTied', storage.get('gamesTied', 0) + gamesTied)    
-    console.log('games won: ' + storage.get('Player1Wins', 999999))
+    window.electronAPI.saveTTTData(gameResultData)
+    gameResultData = [0,0,0]
+}
 
-    ipcRenderer.send('save-TTT-data', gamesWon, gamesTied)
-}*/

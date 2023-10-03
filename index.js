@@ -1,9 +1,9 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow} = require('electron')
+const { app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 
 const Store = require('electron-store')
-Store.initRenderer()
+const storage = new Store()
 
 let mainWindow
 const createWindow = () => {
@@ -16,6 +16,20 @@ const createWindow = () => {
     }
   })
 
+  /*ipcMain.on('save-TTT-data', (data) => {
+    if(!storage.get('Player1Wins')){
+      storage.set('Player1Wins', 0)
+      storage.set('Player2Wins', 0)
+      storage.set('gamesTied', 0)
+    }
+
+    storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
+    storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
+    storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
+    //console.log('games won: ' + storage.get('Player1Wins', 999999))
+    console.log(storage.get('Player1Wins') + " --- " + storage.get('Player2Wins') + " --- " + storage.get('gamesTied'))
+  })*/
+
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 }
@@ -23,6 +37,7 @@ const createWindow = () => {
 // This method will be called when Electron has finished initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  
   createWindow()
 
   app.on('activate', () => {
@@ -40,4 +55,15 @@ app.on('window-all-closed', () => {
  *  ---~~--~~ MAIN CODE BELOW ~~--~~---
 */
 
-const storage = new Store()
+storage.set('Player1Wins', 0)
+storage.set('Player2Wins', 0)
+storage.set('gamesTied', 0)
+
+ipcMain.on('save-TTT-data', (data) => {
+  console.log(data)
+  storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
+  storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
+  storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
+  //console.log('games won: ' + storage.get('Player1Wins', 999999))
+  console.log(storage.get('Player1Wins', 'ERROR') + " --- " + storage.get('Player2Wins', 'ERROR') + " --- " + storage.get('gamesTied', 'ERROR'))
+})

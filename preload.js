@@ -28,5 +28,5 @@ contextBridge.exposeInMainWorld('versions', {
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  saveTTTData: (gamesWon, gamesTied) => ipcRenderer.send('save-TTT-data', gamesWon, gamesTied)
+  saveTTTData: (data) => ipcRenderer.send('save-TTT-data', data)
 })
