@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 
 const Store = require('electron-store')
+Store.initRenderer()
 const storage = new Store()
 
 let mainWindow
@@ -16,19 +17,7 @@ const createWindow = () => {
     }
   })
 
-  /*ipcMain.on('save-TTT-data', (data) => {
-    if(!storage.get('Player1Wins')){
-      storage.set('Player1Wins', 0)
-      storage.set('Player2Wins', 0)
-      storage.set('gamesTied', 0)
-    }
-
-    storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
-    storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
-    storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
-    //console.log('games won: ' + storage.get('Player1Wins', 999999))
-    console.log(storage.get('Player1Wins') + " --- " + storage.get('Player2Wins') + " --- " + storage.get('gamesTied'))
-  })*/
+  
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -54,16 +43,13 @@ app.on('window-all-closed', () => {
 /*  
  *  ---~~--~~ MAIN CODE BELOW ~~--~~---
 */
+ipcMain.on('electron-store-get', async (event, val) => {
+  //event.returnValue = storage.get(val);
+  return storage.get(val);
+});
 
-storage.set('Player1Wins', 0)
-storage.set('Player2Wins', 0)
-storage.set('gamesTied', 0)
-
-ipcMain.on('save-TTT-data', (data) => {
-  console.log(data)
+ipcMain.on('save-TTT-data', (event, data) => {
   storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
   storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
   storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
-  //console.log('games won: ' + storage.get('Player1Wins', 999999))
-  console.log(storage.get('Player1Wins', 'ERROR') + " --- " + storage.get('Player2Wins', 'ERROR') + " --- " + storage.get('gamesTied', 'ERROR'))
 })

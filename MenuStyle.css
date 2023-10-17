@@ -89,6 +89,7 @@ html{
     background-color:rgb(59, 70, 74);
     border-radius: 80px;
     border: 20px double;
+    visibility: hidden;
    
 }
 

@@ -284,13 +284,11 @@ function checkForWin(playerType){
 
 function winResult(playerSign, player){
     if(checkForWin(playerSign)){
+        gameResultData[player-1]++
         showWin("Player " + player + " wins")
 
         playerScores[player-1]++;
-        document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];
-
-        gameResultData[player-1]++
-        
+        document.getElementById("player-" + player + "-score").textContent = playerScores[player-1];        
     } else {
         checkForTie();
     }
@@ -312,12 +310,11 @@ function checkForTie(){
 
     if(!hasEmptyTiles){
         gameIsRunning = false;
+        gameResultData[2]++
         showWin("Tie")
 
         playerScores[2]++;
         document.getElementById("tie-score").textContent = playerScores[2];
-
-        gameResultData[2]++
     }
 }
 
