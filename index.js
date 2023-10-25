@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain, ipcRenderer} = require('electron')
 const path = require('path')
 
 const Store = require('electron-store')
@@ -43,9 +43,8 @@ app.on('window-all-closed', () => {
 /*  
  *  ---~~--~~ MAIN CODE BELOW ~~--~~---
 */
-ipcMain.on('electron-store-get', async (event, val) => {
-  //event.returnValue = storage.get(val);
-  return storage.get(val);
+ipcMain.on('get-store-item', (event, key) => {
+  mainWindow.webContents.send('item-received', storage.get(key, "??"))
 });
 
 ipcMain.on('save-TTT-data', (event, data) => {
