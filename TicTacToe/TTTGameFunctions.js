@@ -70,6 +70,9 @@ tileButtons.forEach(button => {
 
 /*
     function for the bot to calculate the move to play
+    brute force algorithm: simply finds the first row/collumn/diagonal with two Os, then places the winning O
+    does the same for Xs if none found
+    can be improved but I don't want to
 */
 function calculateMove(botSign, playerSign){
 
@@ -131,18 +134,19 @@ function calculateMove(botSign, playerSign){
                 break;
         }
 
-
+       
         /*
-            at the end of each diagonal row of the board, check for winning moves and moves to block the player
+            at the end of each diagonal path, check for winning diagonal moves, 
+            then blocking moves (see below row and collumn win checking)
         */
         if(i == 7){ //check right to left diagonal ↓
-            if((botDiagonalTiles['rightDiagonal'] == 2 || playerDiagonalTiles['rightDiagonal'] == 2) && botDiagonalTiles['rightDiagonal'] + playerDiagonalTiles['rightDiagonal'] < 3){
+            if(botDiagonalTiles['rightDiagonal'] == 2 && playerDiagonalTiles['rightDiagonal'] == 0){
                 makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
                 return;
             }
            
         } else if(i == 9){ //check left to right diagonal ↓
-             if((botDiagonalTiles['leftDiagonal'] == 2 || playerDiagonalTiles['leftDiagonal'] == 2) && botDiagonalTiles['leftDiagonal'] + playerDiagonalTiles['leftDiagonal'] < 3){
+             if(botDiagonalTiles['leftDiagonal'] == 2 && playerDiagonalTiles['leftDiagonal'] == 0){
                 makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
                 return;
             }
@@ -180,6 +184,21 @@ function calculateMove(botSign, playerSign){
 
             botRowTiles = 0;
             playerRowTiles = 0;
+        }
+
+        //checkl for blocking moves, diagonal
+        if(i == 7){ //check right to left diagonal ↓
+            if(botDiagonalTiles['rightDiagonal'] == 0 && playerDiagonalTiles['rightDiagonal'] == 2){
+                makeMove(2, emptyDiagonalTiles[1][2], emptyDiagonalTiles[1][0], emptyDiagonalTiles[1][1]);
+                return;
+            }
+           
+        } else if(i == 9){ //check left to right diagonal ↓
+             if(botDiagonalTiles['leftDiagonal'] == 0 && playerDiagonalTiles['leftDiagonal'] == 2){
+                makeMove(2, emptyDiagonalTiles[0][2], emptyDiagonalTiles[0][0], emptyDiagonalTiles[0][1]);
+                return;
+            }
+            
         }
     }
     let emptyTile = emptyTiles[Math.floor(Math.random()*emptyTiles.length)];
