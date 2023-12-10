@@ -4,7 +4,7 @@ const path = require('path')
 
 const Store = require('electron-store')
 Store.initRenderer()
-const storage = new Store()
+// const storage = new Store()
 
 let mainWindow
 const createWindow = () => {
@@ -13,7 +13,9 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
     }
   })
 
@@ -43,13 +45,13 @@ app.on('window-all-closed', () => {
 /*  
  *  ---~~--~~ MAIN CODE BELOW ~~--~~---
 */
-ipcMain.on('electron-store-get', async (event, val) => {
-  //event.returnValue = storage.get(val);
-  return storage.get(val);
-});
+// ipcMain.on('electron-store-get', (val) => {
+//   // event.returnValue = storage.get(val);
+//   return storage.get(val);
+// });
 
-ipcMain.on('save-TTT-data', (event, data) => {
-  storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
-  storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
-  storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
-})
+// ipcMain.on('save-TTT-data', (event, data) => {
+//   storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
+//   storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
+//   storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
+// })

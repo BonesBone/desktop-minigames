@@ -42,7 +42,7 @@ html{
 
     width: 300px;
     height: fit-content;
-    margin-top: 25px;
+    /* margin-top: 25px; */
     margin-left: 545px;
 }
 
@@ -79,6 +79,12 @@ html{
     color: aliceblue;
 }
 
+#the-chosen-one{
+    position: fixed;
+    left: 750px;
+    bottom: 0;
+}
+
 #statistics{
     position: absolute;
     left: 310px;
@@ -91,6 +97,7 @@ html{
     border: 20px double;
     visibility: hidden;
    
+    overflow-y: auto;
 }
 
 #statistics h1{
@@ -99,8 +106,12 @@ html{
     color: aliceblue;
 }
 
-#TTT-stats-title{
+#TTT-stats-title, #HM-stats-title{
     font-size: 65px;
     margin-top: 10px;
     margin-bottom: 0px;
+}
+
+.gameStats{
+    margin-bottom: 60px;
 }

@@ -1,4 +1,6 @@
+const Store = require('electron-store');
 
+const store = new Store();
 /*
     main game functions
 */
@@ -401,7 +403,10 @@ function getButtonId(btnNumber){
 //const storage = new Store()
 
 function saveData(){
-    window.electronAPI.saveTTTData(gameResultData)
+    store.set('Player1Wins', store.get('Player1Wins') + gameResultData[0])
+    store.set('Player2Wins', store.get('Player2Wins') + gameResultData[1])
+    store.set('gamesTied', store.get('gamesTied') + gameResultData[2])
+
     gameResultData = [0,0,0]
 }
 

@@ -26,15 +26,16 @@ contextBridge.exposeInMainWorld('versions', {
 })
 */
 const { contextBridge, ipcRenderer } = require('electron')
+const Store = require('electron-store')
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  //save methods for saving data
-  saveTTTData: (data) => ipcRenderer.send('save-TTT-data', data),
+// contextBridge.exposeInMainWorld('electronAPI', {
+//   //save methods for saving data
+//   saveTTTData: (data) => ipcRenderer.send('save-TTT-data', data),
 
-  //allow for electron-store usage in render processes
-  store: {
-    get(key) {
-      return ipcRenderer.sendSync('electron-store-get', key);
-    }
-  }
-})
+//   //allow for electron-store usage in render processes
+//   store: {
+//     get(key) {
+//       return ipcRenderer.send
+//     }
+//   }
+// })
