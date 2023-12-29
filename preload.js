@@ -28,14 +28,15 @@ contextBridge.exposeInMainWorld('versions', {
 const { contextBridge, ipcRenderer } = require('electron')
 const Store = require('electron-store')
 
-// contextBridge.exposeInMainWorld('electronAPI', {
-//   //save methods for saving data
-//   saveTTTData: (data) => ipcRenderer.send('save-TTT-data', data),
-
-//   //allow for electron-store usage in render processes
-//   store: {
-//     get(key) {
-//       return ipcRenderer.send
-//     }
-//   }
-// })
+contextBridge.exposeInMainWorld(
+  // Allowed 'ipcRenderer' methods
+  'ipcRenderer', {
+      // From render to main
+      openDialog: () => {
+          ipcRenderer.send('openDialog');
+      },
+      dialogResponse: (response) => {
+          ipcRenderer.on('dialogResponse', response);
+      }
+  }
+);

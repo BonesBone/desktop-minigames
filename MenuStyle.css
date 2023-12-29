@@ -63,10 +63,6 @@ html{
     background-color: rgb(185, 192, 198);
 }
 
-#welcome-buttons #settings-button{
-    background-color: rgb(99, 103, 106);
-}
-
 #credits{
     display: flex;
     position: absolute;
@@ -85,7 +81,7 @@ html{
     bottom: 0;
 }
 
-#statistics{
+#statistics, #settings{
     position: absolute;
     left: 310px;
     top: 150px;
@@ -95,8 +91,8 @@ html{
     background-color:rgb(59, 70, 74);
     border-radius: 80px;
     border: 20px double;
-    visibility: hidden;
    
+    visibility: hidden;
     overflow-y: auto;
 }
 
@@ -104,6 +100,32 @@ html{
     margin-left: 30px;
     
     color: aliceblue;
+}
+
+#settings button{
+    border-radius: 20px;
+    border-width: 5px;
+    outline: none;
+    overflow: hidden;
+    cursor: pointer;
+    
+    margin-top: 20px;
+    margin-left: 40px;
+    padding: 15px;
+    
+    font-size: 40px;
+    text-align: center;
+    background-color: #2B2B2B;
+    color: white;
+}
+
+#settings #reset-button{
+    background-color: red;
+    color: white;
+}
+
+#settings #reset-button:active{
+    background-color: rgb(196, 0, 0);
 }
 
 #TTT-stats-title, #HM-stats-title{

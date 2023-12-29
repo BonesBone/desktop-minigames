@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain, dialog} = require('electron')
 const path = require('path')
 
 const Store = require('electron-store')
@@ -42,16 +42,27 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
 
-/*  
- *  ---~~--~~ MAIN CODE BELOW ~~--~~---
-*/
-// ipcMain.on('electron-store-get', (val) => {
-//   // event.returnValue = storage.get(val);
-//   return storage.get(val);
-// });
+app.on('openDialog', () => {
+  dialog.showMessageBox(window, {
+      'type': 'question',
+      'title': 'Confirmation',
+      'message': "Are you sure?",
+      'buttons': [
+          'Yes',
+          'No'
+      ]
+  })
+    // Dialog returns a promise so let's handle it correctly
+    .then((result) => {
+        // Bail if the user pressed "No" or escaped (ESC) from the dialog box
+        if (result.response !== 0) { return; }
 
-// ipcMain.on('save-TTT-data', (event, data) => {
-//   storage.set('Player1Wins', storage.get('Player1Wins', 0) + data[0])
-//   storage.set('Player2Wins', storage.get('Player2Wins', 0) + data[1])
-//   storage.set('gamesTied', storage.get('gamesTied', 0) + data[2])    
-// })
+        // Testing.
+        if (result.response === 0) {
+            console.log('The "Yes" button was pressed (main process)');
+        }
+
+        // Reply to the render process
+        window.webContents.send('dialogResponse', result.response);
+    })
+})
